@@ -1,15 +1,11 @@
-import {ADD_TODO} from './actionTypes'
+import { ADD_TODO } from './actionTypes'
 
-const initialState = {
-  todos: [],
-}
+const initialState = []
 
-export const todoApp = (state = initialState, { todo, type }) => {
+export const todos = (state = initialState, { todo, type }) => {
   switch (type) {
     case ADD_TODO:
-      return {
-        todos: [...state.todos, ...todo]
-      }
+      return [...state, todo]
 
     default:
       return state
