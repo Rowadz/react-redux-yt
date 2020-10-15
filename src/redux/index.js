@@ -1,7 +1,5 @@
 import { combineReducers, createStore } from 'redux'
-import { todos } from './todos/reducer'
-import { addTodo } from './todos/actions'
-import { Todo } from './todos/model'
+import { todos, addTodo, Todo } from './todos'
 
 const reducers = combineReducers({
   todos,
