@@ -14,13 +14,15 @@ import {
   FormControl,
   ButtonToolbar,
   Alert,
+  Divider,
 } from 'rsuite'
 import './App.css'
 import { connect } from 'react-redux'
 import { addTodo, Todo } from './redux'
 import { generate } from 'shortid'
+import Todos from './components/Todos'
 
-const App = ({ dispatch, todos }) => {
+const App = ({ dispatch }) => {
   const [state, setState] = useState({ txt: '' })
   const createTodo = () => {
     dispatch(addTodo(new Todo(generate(), state.txt)))
@@ -31,7 +33,6 @@ const App = ({ dispatch, todos }) => {
     setState({ txt })
   }
 
-  console.log(todos, state)
 
   return (
     <div className="main">
@@ -65,6 +66,8 @@ const App = ({ dispatch, todos }) => {
                   </FormGroup>
                 </Form>
               </Panel>
+              <Divider />
+              <Todos />
             </FlexboxGrid.Item>
           </FlexboxGrid>
         </Content>
@@ -73,6 +76,4 @@ const App = ({ dispatch, todos }) => {
   )
 }
 
-export default connect(({ todos }) => {
-  return { todos }
-})(App)
+export default connect()(App)
