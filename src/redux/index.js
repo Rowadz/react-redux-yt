@@ -1,5 +1,5 @@
 import { combineReducers, createStore } from 'redux'
-import { todos, addTodo, Todo } from './todos'
+import { todos, addTodo, Todo, delTodo } from './todos'
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const reducers = combineReducers({
@@ -8,4 +8,4 @@ const reducers = combineReducers({
 
 export default createStore(reducers,  composeWithDevTools())
 
-export { addTodo, Todo }
+export { addTodo, Todo, delTodo }
