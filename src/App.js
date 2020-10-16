@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import 'rsuite/dist/styles/rsuite-dark.css'
 import {
   Button,
@@ -13,16 +13,25 @@ import {
   ControlLabel,
   FormControl,
   ButtonToolbar,
+  Alert,
 } from 'rsuite'
 import './App.css'
 import { connect } from 'react-redux'
 import { addTodo, Todo } from './redux'
+import { generate } from 'shortid'
 
 const App = ({ dispatch, todos }) => {
-  const createTodo = () =>
-    dispatch(addTodo(new Todo(1, 'learn the basics of redux')))
+  const [state, setState] = useState({ txt: '' })
+  const createTodo = () => {
+    dispatch(addTodo(new Todo(generate(), state.txt)))
+    Alert.success(`Added A TODO text -> ${state.txt}`)
+    setState({ txt: '' })
+  }
+  const updateTxt = (txt) => {
+    setState({ txt })
+  }
 
-  console.log(todos)
+  console.log(todos, state)
 
   return (
     <div className="main">
@@ -41,11 +50,17 @@ const App = ({ dispatch, todos }) => {
                 <Form fluid>
                   <FormGroup>
                     <ControlLabel>What you want to do?</ControlLabel>
-                    <FormControl name="task" />
+                    <FormControl
+                      name="task"
+                      onChange={updateTxt}
+                      value={state.txt}
+                    />
                   </FormGroup>
                   <FormGroup>
                     <ButtonToolbar>
-                      <Button appearance="primary">Create</Button>
+                      <Button appearance="primary" onClick={createTodo}>
+                        Create
+                      </Button>
                     </ButtonToolbar>
                   </FormGroup>
                 </Form>
