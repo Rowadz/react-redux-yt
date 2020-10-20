@@ -18,11 +18,11 @@ import {
 } from 'rsuite'
 import './App.css'
 import { connect } from 'react-redux'
-import { addTodo, delTodo, Todo } from './redux'
+import { addTodo, delTodo, Todo, fetchPosts } from './redux'
 import { generate } from 'shortid'
 import Todos from './components/Todos'
 
-const App = ({ addTodo, delTodo, todos  }) => {
+const App = ({ addTodo, delTodo, todos, getPosts }) => {
   const [state, setState] = useState({ txt: '' })
   const createTodo = () => {
     addTodo(state.txt)
@@ -32,6 +32,8 @@ const App = ({ addTodo, delTodo, todos  }) => {
   const updateTxt = (txt) => {
     setState({ txt })
   }
+
+  getPosts()
 
   return (
     <div className="main">
@@ -82,7 +84,8 @@ const mapStateToProps = ({ todos }, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     delTodo: (todo) => dispatch(delTodo(todo)),
-    addTodo: (txt) => dispatch(addTodo(new Todo(generate(), txt)))
+    addTodo: (txt) => dispatch(addTodo(new Todo(generate(), txt))),
+    getPosts: () => dispatch(fetchPosts()),
   }
 }
 
